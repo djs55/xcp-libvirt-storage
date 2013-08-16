@@ -24,12 +24,12 @@ let major_version = 0
 let version = Printf.sprintf "%d.%d" major_version minor_version
 let required_api_version = "2.0"
 let features = [
-  "VDI_CREATE", 0L;
-  "VDI_DELETE", 0L;
-  "VDI_ATTACH", 0L;
-  "VDI_DETACH", 0L;
-  "VDI_ACTIVATE", 0L;
-  "VDI_DEACTIVATE", 0L;
+  "VDI_CREATE";
+  "VDI_DELETE";
+  "VDI_ATTACH";
+  "VDI_DETACH";
+  "VDI_ACTIVATE";
+  "VDI_DEACTIVATE";
 ]
 let _xml  = "xml"
 let _name = "name"
@@ -194,6 +194,7 @@ module Implementation = struct
     let remove_from_sm_config = remove_from_sm_config
     let set_content_id = set_content_id
     let get_by_name = get_by_name
+    let resize = resize
 
     let example_volume_xml = "
        <volume>
@@ -332,6 +333,9 @@ module Implementation = struct
   module SR = struct
     open Storage_skeleton.SR
     let list = list
+    let update_snapshot_info_src = update_snapshot_info_src
+    let update_snapshot_info_dest = update_snapshot_info_dest
+    let stat = stat
     let scan ctx ~dbg ~sr =
        let sr = Attached_srs.get sr in
        let pool = Libvirt.Pool.const sr.pool in
